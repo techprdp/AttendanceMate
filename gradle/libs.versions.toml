@@ -21,12 +21,14 @@ material3Version = "1.2.1"
 materialIconsExtendedVersion = "1.7.2"
 navigationComposeVersion = "2.7.7"
 okhttp = "4.9.1"
+playServicesAdsVersion = "23.3.0"
 retrofit = "2.9.0"
 coreI18n = "1.0.0-alpha01"
 runtimeLivedataVersion = "1.6.8"
 constraintlayoutComposeVersion = "1.0.1"
 firebaseCrashlyticsVersion = "19.1.0"
 googleFirebaseCrashlyticsVersion = "3.0.2"
+googleGmsGoogleServicesVersion = "4.4.2"
 
 [libraries]
 androidx-animation = { module = "androidx.compose.animation:animation" }
@@ -59,6 +61,7 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAdsVersion" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 androidx-core-i18n = { group = "androidx.core", name = "core-i18n", version.ref = "coreI18n" }
 androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayoutComposeVersion" }
@@ -70,4 +73,5 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin"}
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroidCompilerVersion"}
 google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlyticsVersion" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServicesVersion" }
 

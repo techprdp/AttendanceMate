@@ -35,10 +35,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.attendance.attendancemate.data.SessionData
+import com.attendance.attendancemate.utils.CommonUtils
 import com.attendance.attendancemate.view.LoginViewModel
 import com.attendance.attendancemate.view.SharedViewModel
 import com.google.gson.Gson
@@ -227,16 +229,22 @@ fun LoginScreen(navController: NavHostController, sharedViewModel: SharedViewMod
             Spacer(modifier = Modifier.height(16.dp))
             Text(errorMessage, color = MaterialTheme.colorScheme.error)
         }
-
-        // Version name displayed at the bottom
-        Text(
-            text = "v$versionName",
-            style = MaterialTheme.typography.bodySmall,
+        Column(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 16.dp),
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
-        )
+                .padding(bottom = 16.dp)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CommonUtils.getAdMobAdUnitId()?.let { CommonUtils.AdMobBanner(adUnitId = it) }
+
+            // Version name displayed below the AdMob banner
+            Text(
+                text = "v$versionName",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+            )
+        }
     }
 }
 

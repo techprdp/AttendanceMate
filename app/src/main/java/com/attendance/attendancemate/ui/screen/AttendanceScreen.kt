@@ -37,7 +37,6 @@ import androidx.navigation.NavHostController
 import com.attendance.attendancemate.data.SessionData
 import com.attendance.attendancemate.ui.AttendanceItem
 import com.attendance.attendancemate.view.AttendanceViewModel
-import com.attendance.attendancemate.view.LoginViewModel
 import com.attendance.attendancemate.view.SharedViewModel
 import com.google.gson.Gson
 import java.time.LocalDate
@@ -66,7 +65,6 @@ fun AttendanceScreen(
     } ?: sharedSessionData
 
     val sharedEmail by sharedViewModel.email.observeAsState()
-    val password by sharedViewModel.password.observeAsState()
     val sharedDate by sharedViewModel.date.observeAsState()
     val subjects by attendanceViewModel.subjects.observeAsState(emptyList())
     val errorMessage by attendanceViewModel.errorMessage.observeAsState(null)

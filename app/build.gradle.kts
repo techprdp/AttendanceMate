@@ -3,8 +3,9 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(libs.plugins.dagger.hilt.android)
-    id("com.google.gms.google-services")
+    alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.google.firebase.crashlytics)
+
     id("kotlin-parcelize")
 }
 
@@ -80,6 +81,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout.compose)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)
+    implementation(libs.play.services.ads)
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
     testImplementation(libs.junit)
