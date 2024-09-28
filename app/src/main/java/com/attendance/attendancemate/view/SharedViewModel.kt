@@ -31,6 +31,13 @@ class SharedViewModel @Inject constructor(
     private val _date = MutableLiveData<String>()
     val date: LiveData<String> = _date
 
+    private val _dataRetentionAgreed = MutableLiveData<Boolean>()
+    val dataRetentionAgreed: LiveData<Boolean> = _dataRetentionAgreed
+
+    private val _hasSeenPolicy = MutableLiveData<Boolean>()
+    val hasSeenPolicy: LiveData<Boolean> = _hasSeenPolicy
+
+
     init {
         // Load saved data from SharedPreferences when ViewModel is created
         val cookie = sharedPreferences.getString("cookie", null)
@@ -41,9 +48,11 @@ class SharedViewModel @Inject constructor(
             null
         }
 
-        _email.value = sharedPreferences.getString("email", null)
+        _email.value = sharedPreferences.getString("email", "")
         _date.value = sharedPreferences.getString("date", LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))
-        _password.value = sharedPreferences.getString("password", null)
+        _password.value = sharedPreferences.getString("password", "")
+        _dataRetentionAgreed.value = sharedPreferences.getBoolean("dataRetentionAgreed", false)
+        _hasSeenPolicy.value = sharedPreferences.getBoolean("hasSeenPolicy", false)
     }
 
     fun setSessionData(sessionData: SessionData) {
@@ -70,13 +79,30 @@ class SharedViewModel @Inject constructor(
         sharedPreferences.edit().putString("password", password).apply()
     }
 
+    fun setDataRetentionAgreed(agreed: Boolean) {
+        _dataRetentionAgreed.value = agreed
+        sharedPreferences.edit().putBoolean("dataRetentionAgreed", agreed).apply()
+    }
+
+    fun setHasSeenPolicy(seen: Boolean) {
+        _hasSeenPolicy.value = seen
+        sharedPreferences.edit().putBoolean("hasSeenPolicy", seen).apply()
+    }
+
     fun clearData() {
         val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
         _sessionData.value = null
-        _email.value = null
+        _email.value = ""
         _date.value = currentDate
-        _password.value = null
-        sharedPreferences.edit().clear().apply()
+        _password.value = ""
+
+        val editor = sharedPreferences.edit()
+        editor.remove("cookie")
+        editor.remove("cookieExpiry")
+        editor.remove("email")
+        editor.remove("password")
+        editor.remove("date")
+        editor.apply()
     }
 
     // Check if the session is expired

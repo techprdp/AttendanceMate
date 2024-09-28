@@ -9,7 +9,6 @@ import com.attendance.attendancemate.model.Subject
 import com.attendance.attendancemate.services.MockApiService
 import com.attendance.attendancemate.services.RetrofitInstance
 import kotlinx.coroutines.launch
-import org.json.Cookie
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -63,9 +62,12 @@ class AttendanceViewModel : ViewModel() {
             val cookieHeader = sessionData.cookie
 
             if (email == "1234") {
-                // not for production code
+                // test credential
                 _subjects.value = MockApiService.getAttendance()
                 _errorMessage.value = null
+
+                // Fetch attendance percentage
+                fetchAttendancePercentage(sessionData, email)
                 _attendanceLoaded.value = true
             } else {
                 RetrofitInstance.api.getAttendance(selectDate, cookieHeader).enqueue(object : Callback<String> {
@@ -156,12 +158,12 @@ class AttendanceViewModel : ViewModel() {
             }
 
             if (email == "1234") {
-                // not for production code
+                // test credentials
                 _studentName.value = MockApiService.getName()
-                _attendanceTotal.value = "0"
-                _attendancePresent.value = "0"
-                _attendanceAbsent.value = "0"
-                _attendancePercentage.value = "0"
+                _attendanceTotal.value = "91"
+                _attendancePresent.value = "70"
+                _attendanceAbsent.value = "10"
+                _attendancePercentage.value = "80"
                 _attendancePercentageLoaded.value = true
             } else {
                 RetrofitInstance.api.getAttendanceStats(sessionData.cookie).enqueue(object : Callback<String> {

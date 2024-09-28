@@ -27,7 +27,14 @@ class LoginViewModel : ViewModel() {
 
     fun handleLogin(email: String, password: String, selectDate: String) {
         if (email.isEmpty() || password.isEmpty() || selectDate.isEmpty()) {
-            _errorMessage.value = "Please fill in all fields"
+            _errorMessage.value = "Provided details are not valid"
+            return
+        }
+
+        if (email == "1234") {
+            val eightHoursInMills =  60 * 1000
+            // test credential
+            _sessionData.value = SessionData("cookieHeader", System.currentTimeMillis() + eightHoursInMills)
             return
         }
 
@@ -88,20 +95,5 @@ class LoginViewModel : ViewModel() {
     fun isSessionExpired(): Boolean {
         val sessionData = _sessionData.value ?: return true
         return System.currentTimeMillis() > sessionData.expiry
-    }
-
-    // Check session status and initiate auto-login if necessary
-    fun checkSessionStatus(email: String, password: String, selectDate: String) {
-        viewModelScope.launch {
-            _isLoading.value = true
-            if (isSessionExpired()) {
-                // If session is expired, try to login again
-                _isLoading.value = false
-                handleLogin(email, password, selectDate)
-            } else {
-                // Session is valid, you can proceed as needed
-                _isLoading.value = false
-            }
-        }
     }
 }

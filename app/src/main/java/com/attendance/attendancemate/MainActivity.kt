@@ -7,12 +7,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.attendance.attendancemate.ui.screen.AttendanceScreen
+import androidx.navigation.navArgument
+import com.attendance.attendancemate.ui.screen.BottomNavScreen
 import com.attendance.attendancemate.ui.screen.LoginScreen
 import com.attendance.attendancemate.ui.theme.AttendanceMateTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
 
         // SharedPreferences for version management
         val sharedPreferences = getSharedPreferences("login_prefs", Context.MODE_PRIVATE)
-        val currentVersionCode = 5
+        val currentVersionCode = 8
         val storedVersionCode = sharedPreferences.getInt("version_code", 1)
 
         // Define the version codes for which cleanup is required
@@ -56,8 +57,19 @@ fun MainNavHost(navController: NavHostController) {
         composable("login") {
             LoginScreen(navController)
         }
-        composable("attendance") {
-            AttendanceScreen(navController)
+
+        composable(
+            "bottomNav?sessionData={sessionData}&email={email}&date={date}",
+            arguments = listOf(
+                navArgument("sessionData") { type = NavType.StringType },
+                navArgument("email") { type = NavType.StringType },
+                navArgument("date") { type = NavType.StringType },
+            )
+        ) { backStackEntry ->
+            val sessionDataJson = backStackEntry.arguments?.getString("sessionData")
+            val email = backStackEntry.arguments?.getString("email")
+            val date = backStackEntry.arguments?.getString("date")
+            BottomNavScreen(navController, sessionDataJson, email, date)
         }
     }
 }
