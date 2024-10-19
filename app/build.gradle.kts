@@ -82,6 +82,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)
     implementation(libs.play.services.ads)
+    implementation("com.startapp:inapp-sdk:5.1.0")
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
     testImplementation(libs.junit)
